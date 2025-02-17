@@ -1,5 +1,6 @@
 package com.practice.itx.domain.model;
 
+import com.practice.itx.domain.exceptions.ProductIllegalArgumentException;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -16,8 +17,12 @@ public class ProductModel {
 
     public void setSalesUnits(int salesUnits) {
         if (salesUnits < 0) {
-            throw new IllegalArgumentException("Sales units cannot be negative");
+            throw new ProductIllegalArgumentException("Sales units cannot be negative");
         }
         this.salesUnits = salesUnits;
+    }
+
+    public double calculateUnitsSalesWeight(double weight) {
+        return salesUnits * weight;
     }
 }

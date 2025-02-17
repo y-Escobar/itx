@@ -14,12 +14,17 @@ import java.util.Map;
 @NoArgsConstructor
 public class StockModel {
 
-    @JsonProperty("_id")
     private String id;
     private Map<Size, Integer> sizes = new HashMap<>();
 
     public void setSizes(Map<Size, Integer> sizes) {
         this.sizes = (sizes != null) ? new HashMap<>(sizes) : Collections.emptyMap();
+    }
+
+    public double calculateStockRatioWeight(double weight) {
+        int totalSizes = sizes.size();
+        int sizesWithStock = (int) sizes.values().stream().filter(v -> v > 0).count();
+        return ((double) sizesWithStock / totalSizes) * weight;
     }
 
 }
