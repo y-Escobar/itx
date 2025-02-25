@@ -8,6 +8,7 @@ import com.practice.itx.infrastructure.persistence.StockRepository;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Component;
 
+import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
 
@@ -51,22 +52,22 @@ public class DataInitializer implements CommandLineRunner {
         System.out.println("Eliminados registros anteriores");
 
         int i = 0;
-        StockEntity stock1 = new StockEntity(stockIds.get(i++), Map.of(Size.S, 4, Size.M, 9, Size.L, 0));
+        StockEntity stock1 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 4, Size.M, 9, Size.L, 0)));
         stock1 = stockRepository.save(stock1);
         System.out.println("Almacenado Stock 1");
-        StockEntity stock2 = new StockEntity(stockIds.get(i++), Map.of(Size.S, 35, Size.M, 9, Size.L, 9));
+        StockEntity stock2 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 35, Size.M, 9, Size.L, 9)));
         stock2 = stockRepository.save(stock2);
         System.out.println("Almacenado Stock 2");
-        StockEntity stock3 = new StockEntity(stockIds.get(i++), Map.of(Size.S, 20, Size.M, 2, Size.L, 20));
+        StockEntity stock3 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 20, Size.M, 2, Size.L, 20)));
         stock3 = stockRepository.save(stock3);
         System.out.println("Almacenado Stock 3");
-        StockEntity stock4 = new StockEntity(stockIds.get(i++), Map.of(Size.S, 25, Size.M, 30, Size.L, 10));
+        StockEntity stock4 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 25, Size.M, 30, Size.L, 10)));
         stock4 = stockRepository.save(stock4);
         System.out.println("Almacenado Stock 4");
-        StockEntity stock5 = new StockEntity(stockIds.get(i++), Map.of(Size.S, 0, Size.M, 1, Size.L, 0));
+        StockEntity stock5 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 0, Size.M, 1, Size.L, 0)));
         stock5 = stockRepository.save(stock5);
         System.out.println("Almacenado Stock 5");
-        StockEntity stock6 = new StockEntity(stockIds.get(i), Map.of(Size.S, 9, Size.M, 2, Size.L, 5));
+        StockEntity stock6 = new StockEntity(stockIds.get(i), new LinkedHashMap<>(Map.of(Size.S, 9, Size.M, 2, Size.L, 5)));
         stock6 = stockRepository.save(stock6);
         System.out.println("Almacenado Stock 6");
 

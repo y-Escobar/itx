@@ -31,7 +31,9 @@ public class ProductService {
         List<ProductModel> productModelList = productRepositoryPort.findProductsAndStock();
 
         return productModelList.stream()
-                .sorted(Comparator.comparingDouble((ProductModel p) -> productSortingCriteriaPort.calculateSortingWeight(p, sortingCriteriaDTO)).reversed())
+                .sorted(Comparator.comparingDouble((ProductModel p) -> productSortingCriteriaPort.calculateSortingWeight(p, sortingCriteriaDTO))
+                        .thenComparing(ProductModel::getName)
+                        .reversed())
                 .map(productMapperPort::productModelToListProductResponse)
                 .toList();
     }

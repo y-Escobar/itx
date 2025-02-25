@@ -12,7 +12,7 @@ public class ProductSortingCriteriaHandler implements ProductSortingCriteriaPort
     public double calculateSortingWeight(ProductModel product, SortingCriteriaDTO sortingCriteriaDTO) {
         double weight = 0;
         weight += product.calculateUnitsSalesWeight(replaceWeightIfNull(sortingCriteriaDTO.salesUnitsWeight()));
-        weight += product.getStock().calculateStockRatioWeight(replaceWeightIfNull(sortingCriteriaDTO.salesUnitsWeight()));
+        weight += product.getStock().calculateStockRatioWeight(replaceWeightIfNull(sortingCriteriaDTO.stockRatioWeight()));
         return weight;
     }
 

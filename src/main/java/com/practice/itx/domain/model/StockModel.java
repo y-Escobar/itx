@@ -23,6 +23,7 @@ public class StockModel {
 
     public double calculateStockRatioWeight(double weight) {
         int totalSizes = sizes.size();
+        if (totalSizes == 0) return 0.0;
         int sizesWithStock = (int) sizes.values().stream().filter(v -> v > 0).count();
         return ((double) sizesWithStock / totalSizes) * weight;
     }

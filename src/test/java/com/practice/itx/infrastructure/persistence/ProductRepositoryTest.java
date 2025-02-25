@@ -15,8 +15,7 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
-@Import(ProductRepository.class)
-@SpringBootTest
+@DataMongoTest
 public class ProductRepositoryTest {
 
     @Autowired

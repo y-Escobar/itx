@@ -3,4 +3,4 @@ spring:
     name: itx-test
   data:
     mongodb:
-      uri: mongodb://localhost:27017/testdb
+      uri: mongodb://root:secret@localhost:27017/testdatabase?authSource=admin&waitQueueTimeoutMS=5000
