@@ -2,6 +2,7 @@ package com.practice.itx.infrastructure.controller;
 
 import com.practice.itx.application.dto.ListProductResponse;
 import com.practice.itx.application.dto.SortingCriteriaDTO;
+import com.practice.itx.config.MongoTestConfig;
 import com.practice.itx.domain.model.Size;
 import io.restassured.common.mapper.TypeRef;
 import org.assertj.core.groups.Tuple;
@@ -9,6 +10,7 @@ import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.boot.test.web.server.LocalServerPort;
+import org.springframework.context.annotation.Import;
 import org.springframework.test.context.ActiveProfiles;
 
 import java.util.List;
@@ -20,6 +22,7 @@ import static org.hamcrest.Matchers.equalTo;
 
 @SpringBootTest(webEnvironment = SpringBootTest.WebEnvironment.RANDOM_PORT)
 @ActiveProfiles("test")
+@Import(MongoTestConfig.class)
 public class ProductControllerTest {
 
     @LocalServerPort

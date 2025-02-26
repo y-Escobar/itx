@@ -39,4 +39,3 @@ public class StockModelTest {
         assertThat(weight).isEqualTo((2.0 * 2) / 3);
     }
 }
-

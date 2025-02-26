@@ -1,5 +1,6 @@
 package com.practice.itx.infrastructure.persistence;
 
+import com.practice.itx.config.MongoTestConfig;
 import com.practice.itx.domain.model.ProductModel;
 import com.practice.itx.domain.model.Size;
 import org.junit.jupiter.api.Test;
@@ -15,7 +16,8 @@ import java.util.Map;
 import static org.assertj.core.api.Assertions.assertThat;
 
 @ActiveProfiles("test")
-@DataMongoTest
+@SpringBootTest
+@Import(MongoTestConfig.class)
 public class ProductRepositoryTest {
 
     @Autowired

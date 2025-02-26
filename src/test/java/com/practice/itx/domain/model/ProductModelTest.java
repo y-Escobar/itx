@@ -31,4 +31,3 @@ public class ProductModelTest {
         assertThat(weight).isEqualTo(100.0);
     }
 }
-

@@ -38,6 +38,9 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	testImplementation 'io.rest-assured:rest-assured:5.4.0'
 
+	testImplementation 'org.testcontainers:testcontainers:1.19.3'
+	testImplementation 'org.testcontainers:mongodb:1.19.3'
+
 	testRuntimeOnly 'org.junit.platform:junit-platform-launcher'
 }
 
