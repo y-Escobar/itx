@@ -5,7 +5,9 @@ import com.practice.itx.infrastructure.entity.ProductEntity;
 import com.practice.itx.infrastructure.entity.StockEntity;
 import com.practice.itx.infrastructure.persistence.ProductRepository;
 import com.practice.itx.infrastructure.persistence.StockRepository;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.context.annotation.Profile;
 import org.springframework.stereotype.Component;
 
 import java.util.LinkedHashMap;
@@ -13,6 +15,8 @@ import java.util.List;
 import java.util.Map;
 
 @Component
+@Slf4j
+@Profile({"dev", "test"})
 public class DataInitializer implements CommandLineRunner {
 
     private final ProductRepository productRepository;
@@ -42,48 +46,48 @@ public class DataInitializer implements CommandLineRunner {
     }
 
     @Override
-    public void run(String... args) throws Exception {
+    public void run(String... args) {
 
-        System.out.println("Ejecutando DataInitializer...");
+        log.info("Executing DataInitializer...");
 
         stockRepository.deleteAllById(stockIds);
         productRepository.deleteAllById(productIds);
 
-        System.out.println("Eliminados registros anteriores");
+        log.info("Deleting previous entries");
 
+        List<StockEntity> initialStock = getStockEntities();
+        log.info("Saving Stock list");
+        stockRepository.saveAll(initialStock);
+        log.info("Saved Stock list");
+
+        List<ProductEntity> initialProducts = getProductEntities(initialStock);
+        log.info("Saving Product list");
+        productRepository.saveAll(initialProducts);
+        log.info("Saved Product list");
+
+    }
+
+    private List<ProductEntity> getProductEntities(List<StockEntity> initialStock) {
+        int i = 0, j = 0;
+        return List.of(
+            new ProductEntity(productIds.get(i++), "V-NECH BASIC SHIRT", 100, initialStock.get(j++).getId()),
+            new ProductEntity(productIds.get(i++), "CONTRASTING FABRIC T-SHIRT", 50, initialStock.get(j++).getId()),
+            new ProductEntity(productIds.get(i++), "RAISED PRINT T-SHIRT", 80, initialStock.get(j++).getId()),
+            new ProductEntity(productIds.get(i++), "PLEATED T-SHIRT", 3, initialStock.get(j++).getId()),
+            new ProductEntity(productIds.get(i++), "CONTRASTING LACE T-SHIRT", 650, initialStock.get(j++).getId()),
+            new ProductEntity(productIds.get(i), "SLOGAN T-SHIRT", 20, initialStock.get(j).getId())
+        );
+    }
+
+    private List<StockEntity> getStockEntities() {
         int i = 0;
-        StockEntity stock1 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 4, Size.M, 9, Size.L, 0)));
-        stock1 = stockRepository.save(stock1);
-        System.out.println("Almacenado Stock 1");
-        StockEntity stock2 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 35, Size.M, 9, Size.L, 9)));
-        stock2 = stockRepository.save(stock2);
-        System.out.println("Almacenado Stock 2");
-        StockEntity stock3 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 20, Size.M, 2, Size.L, 20)));
-        stock3 = stockRepository.save(stock3);
-        System.out.println("Almacenado Stock 3");
-        StockEntity stock4 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 25, Size.M, 30, Size.L, 10)));
-        stock4 = stockRepository.save(stock4);
-        System.out.println("Almacenado Stock 4");
-        StockEntity stock5 = new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 0, Size.M, 1, Size.L, 0)));
-        stock5 = stockRepository.save(stock5);
-        System.out.println("Almacenado Stock 5");
-        StockEntity stock6 = new StockEntity(stockIds.get(i), new LinkedHashMap<>(Map.of(Size.S, 9, Size.M, 2, Size.L, 5)));
-        stock6 = stockRepository.save(stock6);
-        System.out.println("Almacenado Stock 6");
-
-        int j = 0;
-        productRepository.save(new ProductEntity(productIds.get(j++), "V-NECH BASIC SHIRT", 100, stock1.getId()));
-        System.out.println("Almacenado Producto 1");
-        productRepository.save(new ProductEntity(productIds.get(j++), "CONTRASTING FABRIC T-SHIRT", 50, stock2.getId()));
-        System.out.println("Almacenado Producto 2");
-        productRepository.save(new ProductEntity(productIds.get(j++), "RAISED PRINT T-SHIRT", 80, stock3.getId()));
-        System.out.println("Almacenado Producto 3");
-        productRepository.save(new ProductEntity(productIds.get(j++), "PLEATED T-SHIRT", 3, stock4.getId()));
-        System.out.println("Almacenado Producto 4");
-        productRepository.save(new ProductEntity(productIds.get(j++), "CONTRASTING LACE T-SHIRT", 650, stock5.getId()));
-        System.out.println("Almacenado Producto 5");
-        productRepository.save(new ProductEntity(productIds.get(j), "SLOGAN T-SHIRT", 20, stock6.getId()));
-        System.out.println("Almacenado Producto 6");
-
+        return List.of(
+            new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 4, Size.M, 9, Size.L, 0))),
+            new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 35, Size.M, 9, Size.L, 9))),
+            new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 20, Size.M, 2, Size.L, 20))),
+            new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 25, Size.M, 30, Size.L, 10))),
+            new StockEntity(stockIds.get(i++), new LinkedHashMap<>(Map.of(Size.S, 0, Size.M, 1, Size.L, 0))),
+            new StockEntity(stockIds.get(i), new LinkedHashMap<>(Map.of(Size.S, 9, Size.M, 2, Size.L, 5)))
+        );
     }
 }

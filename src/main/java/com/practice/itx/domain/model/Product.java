@@ -8,12 +8,12 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class ProductModel {
+public class Product {
 
     private String id;
     private String name;
     private int salesUnits = 0;
-    private StockModel stock = new StockModel();
+    private Stock stock = new Stock();
 
     public void setSalesUnits(int salesUnits) {
         if (salesUnits < 0) {
@@ -22,7 +22,7 @@ public class ProductModel {
         this.salesUnits = salesUnits;
     }
 
-    public double calculateUnitsSalesWeight(double weight) {
-        return salesUnits * weight;
+    public void setStock(Stock stock) {
+        this.stock = (stock == null) ? new Stock() : stock;
     }
 }

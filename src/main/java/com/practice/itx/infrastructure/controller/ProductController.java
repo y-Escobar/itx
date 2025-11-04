@@ -1,30 +1,25 @@
 package com.practice.itx.infrastructure.controller;
 
-import com.practice.itx.application.ProductService;
-import com.practice.itx.application.dto.ListProductResponse;
-import com.practice.itx.application.dto.SortingCriteriaDTO;
+import com.practice.itx.application.SortProduct;
+import com.practice.itx.application.dto.ProductsResponse;
+import com.practice.itx.application.dto.WeightsRequest;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import java.util.List;
+import org.springframework.validation.annotation.Validated;
+import org.springframework.web.bind.annotation.*;
 
 @RestController
-@RequestMapping("/product")
-public class ProductController {
+@RequestMapping("/products")
+public final class ProductController {
 
-    private final ProductService productService;
+    private final SortProduct sortProducts;
 
-    ProductController(ProductService productService){
-        this.productService = productService;
+    ProductController(SortProduct sortProducts){
+        this.sortProducts = sortProducts;
     }
 
-    @PostMapping("/criteria")
-    ResponseEntity<List<ListProductResponse>> findProductsByCriteria(@RequestBody SortingCriteriaDTO sortingCriteria){
-        List<ListProductResponse> productList = productService.findProductsBySortingCriteria(sortingCriteria);
-        return ResponseEntity.ok(productList);
+    @GetMapping
+    public ResponseEntity<ProductsResponse> list(@Validated @ModelAttribute WeightsRequest weights) {
+        return ResponseEntity.ok(sortProducts.execute(weights.asMap()));
     }
 
 }

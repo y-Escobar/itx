@@ -3,7 +3,8 @@ services:
     image: backend:latest
     build: .
     environment:
-      SPRING_DATA_MONGODB_URI: mongodb://root:secret@mongodb:27017/mydatabase?authSource=admin&waitQueueTimeoutMS=5000
+      SPRING_DATA_MONGODB_URI: mongodb://root:secret@mongodb:27017/mydatabase?authSource=admin&timeoutMS=5000
+      SPRING_PROFILES_ACTIVE: dev
     ports:
       - "8080:8080"
     depends_on:
